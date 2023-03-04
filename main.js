@@ -9,42 +9,37 @@
 
 "use strict"
 
-document.getElementsByTagName('form')[0].addEventListener('submit', event => {
-    event.preventDefault();
-    form.handleSubmit();
-})
-
-
 class Person {
     constructor(name, age, occupation) {
         this.name = name;
         this.age = age;
         this.occupation = occupation;
     }
-    introduction(name, age, occupation){
-        return `Hi, my name is ${name}. I'm ${age} years old and I work as a ${occupation}.`
+    introduction(){
+        return `Hi, my name is ${this.name}. I'm ${this.age} years old and I work as a ${this.occupation}.`
     }
 }
 
 class Form {
     arr = [];
-    constructor() {
-        this.form = document.forms[0];
+    constructor(form) {
+        this.form = form;
     }
     handleSubmit(){
         for(let i = 0; i < this.form.length - 1; i++){
             this.arr.push(this.form[i].value);
         }
-        const newPerson = new Person(...this.arr);
+        let newPerson  = new Person(...this.arr);
         const info = document.getElementById('info');
         info.innerText = newPerson.introduction(...this.arr);
         this.form.reset();
+        newPerson = null;
     }
 }
 
-const form = new Form();
+const form = new Form(document.forms[0]);
 
-
-
-
-
+document.getElementsByTagName('form')[0].addEventListener('submit', event => {
+    event.preventDefault();
+    form.handleSubmit();
+})
