@@ -33,11 +33,12 @@ class Form {
         const info = document.getElementById('info');
         info.innerText = newPerson.introduction(...this.arr);
         this.form.reset();
-        newPerson = null;
+        this.arr = [];
     }
 }
 
 const form = new Form(document.forms[0]);
+
 
 document.getElementsByTagName('form')[0].addEventListener('submit', event => {
     event.preventDefault();
